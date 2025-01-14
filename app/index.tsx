@@ -3,8 +3,9 @@ import React from "react";
 
 export default function Index() {
   
-  // const x : any = 1;
+  const x : number = 1;
 
+  console.log(x);
   return (
     <View
       style={{
