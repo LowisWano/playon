@@ -1,9 +1,10 @@
-import React from 'react'
+import { Stack } from 'expo-router';
 
-export default function _layout() {
+export default function RootLayout() {
   return (
-    <div>
-      
-    </div>
-  )
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="+not-found" />
+    </Stack>
+  );
 }
