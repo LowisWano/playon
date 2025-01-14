@@ -1,8 +1,9 @@
 import { Text, View } from "react-native";
+import React from "react";
 
 export default function Index() {
   
-  const x : any = 1;
+  // const x : any = 1;
 
   return (
     <View
