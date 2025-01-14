@@ -1,6 +1,9 @@
 import { Text, View } from "react-native";
 
 export default function Index() {
+  
+  const x : any = 1;
+
   return (
     <View
       style={{
