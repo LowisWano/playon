@@ -19,45 +19,65 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+            <Ionicons
+              name={focused ? "home-sharp" : "home-outline"}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="activities"
         options={{
-          title: 'Activities',
+          title: "Activities",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'bulb' : 'bulb-outline'} color={color} size={24}/>
+            <Ionicons
+              name={focused ? "bulb" : "bulb-outline"}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="create-match"
         options={{
-          title: 'Create Match',
+          title: "Create Match",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'add-circle' : 'add-circle-outline'} color={color} size={24}/>
+            <Ionicons
+              name={focused ? "add-circle" : "add-circle-outline"}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: "Profile",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={24}/>
+            <Ionicons
+              name={focused ? "person" : "person-outline"}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="inbox"
         options={{
-          title: 'Inbox',
+          title: "Inbox",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'chatbubbles' : 'chatbubbles-outline'} color={color} size={24}/>
+            <Ionicons
+              name={focused ? "chatbubbles" : "chatbubbles-outline"}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
