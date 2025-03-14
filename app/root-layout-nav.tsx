@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAuth } from "../context/auth-context";
 import { ActivityIndicator, View } from "react-native";
 
-export function RootLayoutNav() {
+export default function RootLayoutNav() {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
   const segments = useSegments();
