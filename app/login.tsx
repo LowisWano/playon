@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useAuth } from "../context/auth-context";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -29,7 +30,8 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>PlayOn</Text>
+      <Text style={styles.title}>Welcome Back!</Text>
+      <Text style={styles.subtitle}>Please input your details below.</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -45,9 +47,26 @@ export default function Login() {
         onChangeText={setPassword}
         secureTextEntry
       />
+      <Text style={styles.subtitle}>Forgot Password</Text>
       <Pressable style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </Pressable>
+      <Text style={styles.subtitle}>or</Text>
+
+      {/* Google Sign-In Button */}
+      <Pressable
+        style={styles.googleButton}
+        onPress={() => {
+          console.log("Google login pressed");
+          // Implement your Google login logic here
+        }}
+      >
+        <FontAwesome name="google" size={24} color="black" />
+      </Pressable>
+      <Text style={styles.subtitle}>Don&apos;t have an account? Sign up.</Text>
+      <Text style={styles.subtitle}>
+        By logging in to PlayOn, you agree to our Terms and Privacy policy.
+      </Text>
     </View>
   );
 }
@@ -63,6 +82,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 40,
+  },
+  subtitle: {
+    fontSize: 16,
     color: "#fff",
     marginBottom: 40,
   },
@@ -88,5 +112,19 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  googleButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 16,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
 });
