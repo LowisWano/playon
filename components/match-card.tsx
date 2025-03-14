@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 
 interface MatchCardProps {
   sport: string;
@@ -7,6 +8,7 @@ interface MatchCardProps {
   skillLevel: string;
   dateTime: string;
   participantsCount: number;
+  description?: string;
 }
 
 export default function MatchCard({
@@ -16,9 +18,27 @@ export default function MatchCard({
   skillLevel,
   dateTime,
   participantsCount,
+  description = '',
 }: MatchCardProps) {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push({
+      pathname: '/match' as const,
+      params: {
+        sport,
+        author,
+        venue,
+        skillLevel,
+        dateTime,
+        participantsCount,
+        description,
+      },
+    });
+  };
+
   return (
-    <View style={styles.card}>
+    <Pressable style={styles.card} onPress={handlePress}>
       <View style={styles.profileSection}>
         <View style={styles.profilePicture} />
       </View>
@@ -34,7 +54,7 @@ export default function MatchCard({
         <Text style={styles.skillLevel}>{skillLevel}</Text>
         <Text style={styles.participants}>{participantsCount} going</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

@@ -14,6 +14,8 @@ export default function Index() {
       skillLevel: "Intermediate",
       dateTime: "2024-03-25 18:00",
       participantsCount: 8,
+      description:
+        "Join us for a fun game of basketball at Central Park Court. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
     },
     {
       sport: "Soccer",
@@ -22,6 +24,8 @@ export default function Index() {
       skillLevel: "Advanced",
       dateTime: "2024-03-26 17:30",
       participantsCount: 12,
+      description:
+        "Join us for a fun game of soccer at Community Field. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
     },
   ];
 
