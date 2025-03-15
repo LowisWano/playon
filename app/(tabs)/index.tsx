@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useAuth } from "../../context/auth-context";
 import MatchCard from "../../components/match-card";
+import MatchCardCompact from "../../components/match-card-compact";
 
 export default function Index() {
   const { logout } = useAuth();
@@ -27,13 +28,40 @@ export default function Index() {
       description:
         "Join us for a fun game of soccer at Community Field. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
     },
+    {
+      sport: "Basketball",
+      author: "John Doe",
+      venue: "Central Park Court",
+      skillLevel: "Intermediate",
+      dateTime: "2024-03-25 18:00",
+      participantsCount: 8,
+      description:
+        "Join us for a fun game of basketball at Central Park Court. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
+    },
   ];
 
   return (
     <View style={styles.container}>
+      <View style={styles.section}></View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Active Matches</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.activeMatchList}
+        >
+          {activeMatches.map((match, index) => (
+            <View key={index} style={styles.compactCardContainer}>
+              <MatchCardCompact {...match} />
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Recommended</Text>
-        <ScrollView style={styles.matchList}>
+        <ScrollView style={styles.recommendedList}>
           {activeMatches.map((match, index) => (
             <MatchCard key={index} {...match} />
           ))}
@@ -69,7 +97,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 16,
   },
-  matchList: {
+  activeMatchList: {
+    paddingHorizontal: 8,
+    gap: 12,
+  },
+  compactCardContainer: {
+    marginVertical: 8,
+  },
+  recommendedList: {
     flex: 1,
   },
   logoutButton: {
