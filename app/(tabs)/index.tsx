@@ -1,11 +1,8 @@
-import { Text, View, StyleSheet, Pressable, ScrollView } from "react-native";
-import { useAuth } from "../../context/auth-context";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import MatchCard from "../../components/match-card";
 import MatchCardCompact from "../../components/match-card-compact";
-
+import StatsCard from "../../components/stats-card";
 export default function Index() {
-  const { logout } = useAuth();
-
   // Sample data - Replace with actual data from your backend
   const activeMatches = [
     {
@@ -42,7 +39,13 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.section}></View>
+      <View style={styles.section}>
+        <StatsCard
+          activeMatches={activeMatches.length}
+          gamesPlayed={activeMatches.length}
+          onPressViewMatches={() => {}}
+        />
+      </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Active Matches</Text>
@@ -67,10 +70,6 @@ export default function Index() {
           ))}
         </ScrollView>
       </View>
-
-      <Pressable style={styles.logoutButton} onPress={logout}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </Pressable>
     </View>
   );
 }
@@ -106,18 +105,5 @@ const styles = StyleSheet.create({
   },
   recommendedList: {
     flex: 1,
-  },
-  logoutButton: {
-    backgroundColor: "#ff3b30",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
   },
 });
