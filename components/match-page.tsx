@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#25292e',
   },
   banner: {
-    height: 200,
+    height: 250,
     backgroundColor: '#DAF7A6',
   },
   bannerOverlay: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 16,
+    top: 56,
     left: 16,
     width: 40,
     height: 40,
@@ -162,8 +162,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 16,
+    gap: 24,
     marginTop: 'auto',
+    marginBottom: 32,
   },
   participants: {
     fontSize: 16,

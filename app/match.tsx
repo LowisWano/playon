@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import MatchPage from "../../components/match-page";
+import MatchPage from "../components/match-page";
 
 export default function Match() {
   const params = useLocalSearchParams();
