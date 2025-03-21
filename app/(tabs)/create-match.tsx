@@ -8,14 +8,11 @@ import {
   ScrollView,
   Switch,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 
 export default function CreateMatchScreen() {
-  const router = useRouter();
   const [sport, setSport] = useState("");
   const [venue, setVenue] = useState("");
   const [date, setDate] = useState(new Date());
@@ -24,7 +21,6 @@ export default function CreateMatchScreen() {
   const [isPublic, setIsPublic] = useState(true);
 
   const handleCreateMatch = () => {
-    // TODO: Implement match creation logic
     console.log({
       sport,
       venue,
@@ -37,11 +33,6 @@ export default function CreateMatchScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Back Button */}
-      <Pressable style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={24} color="#fff" />
-      </Pressable>
-
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Create Match</Text>
 

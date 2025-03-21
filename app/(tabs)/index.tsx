@@ -38,39 +38,40 @@ export default function Index() {
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.section}>
-        <StatsCard
-          activeMatches={activeMatches.length}
-          gamesPlayed={activeMatches.length}
-          onPressViewMatches={() => {}}
-        />
-      </View>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={styles.content}>
+        <View style={styles.section}>
+          <StatsCard
+            activeMatches={activeMatches.length}
+            gamesPlayed={activeMatches.length}
+            onPressViewMatches={() => {}}
+          />
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Active Matches</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.activeMatchList}
-        >
-          {activeMatches.map((match, index) => (
-            <View key={index} style={styles.compactCardContainer}>
-              <MatchCardCompact {...match} />
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Active Matches</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.activeMatchList}
+          >
+            {activeMatches.map((match, index) => (
+              <View key={index} style={styles.compactCardContainer}>
+                <MatchCardCompact {...match} />
+              </View>
+            ))}
+          </ScrollView>
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Recommended</Text>
-        <ScrollView style={styles.recommendedList}>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Recommended</Text>
+
           {activeMatches.map((match, index) => (
             <MatchCard key={index} {...match} />
           ))}
-        </ScrollView>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -78,6 +79,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#25292e",
+  },
+  content: {
     padding: 16,
   },
   title: {
