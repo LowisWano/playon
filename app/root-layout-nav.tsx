@@ -30,7 +30,7 @@ export default function RootLayoutNav() {
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#25292e",
+          backgroundColor: "#252422",
         }}
       >
         <ActivityIndicator size="large" color="#ffffff" />
@@ -43,6 +43,10 @@ export default function RootLayoutNav() {
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="match" options={{ headerShown: false }} />
+      <Stack.Screen name="user-chat" options={{ headerShown: false }} />
+      <Stack.Screen name="group-chat" options={{ headerShown: false }} />
+      <Stack.Screen name="create-message" options={{ headerShown: false }} />
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }

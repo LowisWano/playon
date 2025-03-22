@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 interface MatchPageProps {
   sport: string;
@@ -71,114 +71,114 @@ export default function MatchPage({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: "#252422",
   },
   banner: {
     height: 250,
-    backgroundColor: '#DAF7A6',
+    backgroundColor: "#DAF7A6",
   },
   bannerOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
   content: {
     flex: 1,
     padding: 16,
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 56,
     left: 16,
     width: 40,
     height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 20,
     zIndex: 1,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 16,
   },
   sport: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
   },
   skillLevel: {
     fontSize: 16,
-    color: '#A5C9CA',
-    backgroundColor: '#3A4444',
+    color: "#A5C9CA",
+    backgroundColor: "#3A4444",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 24,
   },
   label: {
     fontSize: 16,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
   },
   descriptionSection: {
     marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+    fontWeight: "600",
+    color: "#fff",
     marginBottom: 8,
   },
   description: {
     fontSize: 16,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
     lineHeight: 24,
   },
   authorSection: {
     marginBottom: 24,
   },
   authorInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 12,
   },
   profilePicture: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#A5C9CA',
+    backgroundColor: "#A5C9CA",
   },
   authorName: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 24,
-    marginTop: 'auto',
+    marginTop: "auto",
     marginBottom: 32,
   },
   participants: {
     fontSize: 16,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
   },
   joinButton: {
-    backgroundColor: '#A5C9CA',
+    backgroundColor: "#A5C9CA",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
   },
   joinButtonText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#25292e',
+    fontWeight: "bold",
+    color: "#25292e",
   },
 });

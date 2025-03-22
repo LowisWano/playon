@@ -139,7 +139,7 @@ export default function CreateMatchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#25292e",
+    backgroundColor: "#252422",
   },
   backButton: {
     position: "absolute",

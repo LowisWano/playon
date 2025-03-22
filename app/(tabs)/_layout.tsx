@@ -1,5 +1,6 @@
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { TouchableOpacity } from "react-native";
 
 export default function TabLayout() {
   return (
@@ -7,12 +8,12 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: "#ffd33d",
         headerStyle: {
-          backgroundColor: "#25292e",
+          backgroundColor: "#252422",
         },
         headerShadowVisible: false,
         headerTintColor: "#fff",
         tabBarStyle: {
-          backgroundColor: "#25292e",
+          backgroundColor: "#252422",
         },
       }}
     >
@@ -78,6 +79,14 @@ export default function TabLayout() {
               color={color}
               size={24}
             />
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => router.push("/create-message")}
+              style={{ marginRight: 15 }}
+            >
+              <Ionicons name="create-outline" size={24} color="white" />
+            </TouchableOpacity>
           ),
         }}
       />

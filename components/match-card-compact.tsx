@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 interface MatchCardCompactProps {
   sport: string;
@@ -19,13 +19,13 @@ export default function MatchCardCompact({
   skillLevel,
   dateTime,
   participantsCount,
-  description = '',
+  description = "",
 }: MatchCardCompactProps) {
   const router = useRouter();
 
   const handlePress = () => {
     router.push({
-      pathname: '/match' as const,
+      pathname: "/match" as const,
       params: {
         sport,
         author,
@@ -66,12 +66,12 @@ export default function MatchCardCompact({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#2C3333',
+    backgroundColor: "#2C3333",
     borderRadius: 12,
     padding: 12,
     width: 142,
     height: 163,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   skillLevelContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: "column",
+    alignItems: "center",
   },
   topRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
     gap: 8,
     marginBottom: 12,
   },
@@ -94,56 +94,56 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#A5C9CA',
+    backgroundColor: "#A5C9CA",
   },
   sportInfo: {
     flex: 1,
   },
   sport: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 2,
   },
   author: {
     fontSize: 12,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
   },
   skillRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   sportIconContainer: {
     width: 32,
     height: 32,
     borderRadius: 12,
-    backgroundColor: '#3A4444',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#3A4444",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 8,
   },
   skillLevel: {
     fontSize: 12,
-    color: '#A5C9CA',
-    backgroundColor: '#3A4444',
+    color: "#A5C9CA",
+    backgroundColor: "#3A4444",
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginRight: 8,
   },
   participants: {
     fontSize: 12,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
   },
   dateTime: {
     fontSize: 12,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
     marginBottom: 4,
   },
   venue: {
     fontSize: 12,
-    color: '#A5C9CA',
+    color: "#A5C9CA",
   },
 });

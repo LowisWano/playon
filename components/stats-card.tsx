@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 interface StatsCardProps {
   activeMatches: number;
@@ -6,10 +6,10 @@ interface StatsCardProps {
   onPressViewMatches: () => void;
 }
 
-export default function StatsCard({ 
-  activeMatches, 
-  gamesPlayed, 
-  onPressViewMatches 
+export default function StatsCard({
+  activeMatches,
+  gamesPlayed,
+  onPressViewMatches,
 }: StatsCardProps) {
   return (
     <View style={styles.card}>
@@ -32,11 +32,11 @@ export default function StatsCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#2C3333',
+    backgroundColor: "#2C3333",
     borderRadius: 12,
     padding: 20,
-    width: '100%',
-    shadowColor: '#000',
+    width: "100%",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -50,17 +50,17 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#E7F6F2',
+    fontWeight: "600",
+    color: "#E7F6F2",
   },
   statNumber: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#A5C9CA',
+    fontWeight: "bold",
+    color: "#A5C9CA",
   },
   link: {
-    color: '#A5C9CA',
-    textDecorationLine: 'underline',
+    color: "#A5C9CA",
+    textDecorationLine: "underline",
     fontSize: 14,
   },
   gamesPlayedContainer: {
@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#E7F6F2',
+    color: "#E7F6F2",
   },
 });
