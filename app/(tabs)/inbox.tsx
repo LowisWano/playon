@@ -82,8 +82,8 @@ export default function InboxScreen() {
   const { id } = useAuth();
   const { inboxData, isLoading } = useInboxData(id);
 
-  // probably no need loading state for better UX since its component
-  // is always refreshing
+  // probably no need loading state for better UX since its component --
+  // -- is always refreshing
   console.log(inboxData, isLoading, "CHAT DATA");
 
   return (
