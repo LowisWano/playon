@@ -19,15 +19,8 @@ export default function GroupChatLayout() {
           backgroundColor: "#252422",
         },
         headerRight: () => (
-          <TouchableOpacity
-            onPress={() => router.navigate("/group-chat/add-member/")}
-          >
-            <Ionicons
-              name="person-add"
-              size={24}
-              color="white"
-              style={{ marginRight: 20 }}
-            />
+          <TouchableOpacity onPress={() => router.navigate("/group-chat/add-member/")}>
+            <Ionicons name="person-add" size={24} color="white" style={{ marginRight: 20 }} />
           </TouchableOpacity>
         ),
         headerTitle: () => {
@@ -40,7 +33,7 @@ export default function GroupChatLayout() {
         },
       }}
     >
-      <Stack.Screen name="add-member" />
+      <Stack.Screen name="add-member" options={{ headerShown: false }} />
       <Stack.Screen name="[id]" />
     </Stack>
   );

@@ -21,3 +21,9 @@ export type User = {
     // notifications: null;
     // read_messages: null;
 }
+
+export type BasicUserData = {
+    id: number;
+    username: string;
+    profile_pic: string;
+}

@@ -1,22 +1,13 @@
-import { NotificationProvider } from "@/contexts/NotificationContext";
-import { UserProvider } from "@/contexts/UserContext";
-import { Stack } from "expo-router";
+import { NotificationProvider } from "@/context/notification-context";
+import { AuthProvider } from "@/context/auth-context";
+import RootLayoutNav from "./root-layout-nav";
 
 export default function RootLayout() {
   return (
-    <UserProvider>
+    <AuthProvider>
       <NotificationProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="user-chat" options={{ headerShown: false }} />
-          <Stack.Screen name="group-chat" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="create-message"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        <RootLayoutNav />
       </NotificationProvider>
-    </UserProvider>
+    </AuthProvider>
   );
 }

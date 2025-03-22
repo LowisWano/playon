@@ -8,7 +8,7 @@ export default function CreateGroupLayout() {
           backgroundColor: "#252422",
         },
         headerTintColor: "#fff",
-        headerTitle: "New message",
+        headerTitle: "Add member",
         contentStyle: {
           backgroundColor: "#252422",
         },

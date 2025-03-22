@@ -14,7 +14,6 @@ export default function GroupChatScreen() {
     const loadUsersGroupChat = async () => {
       try {
         const data = await ChatService.getGroupchatMessages(Number(params.id));
-        console.log(data, "HERE");
         setRoomData(data);
         setLoading(false);
       } catch (error) {
@@ -24,7 +23,5 @@ export default function GroupChatScreen() {
     loadUsersGroupChat();
   }, [params.id]);
 
-  return (
-    <GroupChatRoom roomData={roomData} paramsData={params} loading={loading} />
-  );
+  return <GroupChatRoom roomData={roomData} paramsData={params} loading={loading} />;
 }

@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import { useUserContext } from "@/contexts/UserContext";
+import { useAuth } from "@/context/auth-context";
 import { useInboxData } from "@/hooks/useInboxData";
 import LatestChatmates from "@/components/inbox/LatestChatmates";
 import OnlineChatmates from "@/components/inbox/OnlineChatmates";
@@ -79,29 +79,19 @@ const testdata = [
 ];
 
 export default function InboxScreen() {
-  const { userId } = useUserContext();
-  const { inboxData, isLoading } = useInboxData(userId);
+  const { id } = useAuth();
+  const { inboxData, isLoading } = useInboxData(id);
 
+  // probably no need loading state for better UX since its component
+  // is always refreshing
   console.log(inboxData, isLoading, "CHAT DATA");
 
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <SearchChatmateBar
-          data={testdata}
-          inboxData={inboxData}
-          isLoading={isLoading}
-        />
-        <OnlineChatmates
-          data={testdata}
-          inboxData={inboxData}
-          isLoading={isLoading}
-        />
-        <LatestChatmates
-          data={testdata}
-          inboxData={inboxData}
-          isLoading={isLoading}
-        />
+        <SearchChatmateBar data={testdata} inboxData={inboxData} />
+        <OnlineChatmates data={testdata} inboxData={inboxData} />
+        <LatestChatmates data={testdata} inboxData={inboxData} />
       </ScrollView>
     </View>
   );

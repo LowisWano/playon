@@ -7,5 +7,4 @@ export type LatestChatmatesProps = {
         type: string;
     }[];
     inboxData: InboxChatmates[];  
-    isLoading: boolean;
 }
