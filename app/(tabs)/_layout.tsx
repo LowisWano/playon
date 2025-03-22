@@ -1,5 +1,7 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function TabLayout() {
   return (
@@ -13,6 +15,8 @@ export default function TabLayout() {
         headerTintColor: "#fff",
         tabBarStyle: {
           backgroundColor: "#25292e",
+          height: 60,
+          paddingBottom: 8,
         },
       }}
     >
@@ -46,12 +50,31 @@ export default function TabLayout() {
         name="create-match"
         options={{
           title: "Create Match",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "add-circle" : "add-circle-outline"}
-              color={color}
-              size={24}
-            />
+          tabBarLabel: () => null,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                position: "absolute",
+                top: -20, // Makes it pop out above the tab bar
+              }}
+            >
+              <LinearGradient
+                colors={["#D9AEFB", "#918CF7"]}
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 28,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name={focused ? "add" : "add"}
+                  color="white"
+                  size={40}
+                />
+              </LinearGradient>
+            </View>
           ),
         }}
       />
