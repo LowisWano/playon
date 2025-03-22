@@ -32,7 +32,7 @@ export default function StatsCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#2C3333',
+    backgroundColor: '#434343',
     borderRadius: 12,
     padding: 20,
     width: '100%',
@@ -51,23 +51,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#E7F6F2',
+    color: 'white',
   },
   statNumber: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#A5C9CA',
+    color: 'white',
   },
   link: {
-    color: '#A5C9CA',
+    color: 'white',
     textDecorationLine: 'underline',
     fontSize: 14,
   },
   gamesPlayedContainer: {
     marginTop: 24,
-  },
-  label: {
-    fontSize: 14,
-    color: '#E7F6F2',
-  },
+  }
 });

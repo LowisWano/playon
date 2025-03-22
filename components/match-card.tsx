@@ -60,11 +60,10 @@ export default function MatchCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#2C3333',
+    backgroundColor: '#434343',
     borderRadius: 12,
     padding: 16,
     marginVertical: 8,
-    marginHorizontal: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#A5C9CA',
+    backgroundColor: '#666666',
   },
   details: {
     flex: 1,
@@ -101,8 +100,8 @@ const styles = StyleSheet.create({
   },
   skillLevel: {
     fontSize: 14,
-    color: '#A5C9CA',
-    backgroundColor: '#3A4444',
+    color: '#E6E6E6',
+    backgroundColor: '#555555',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 4,
@@ -110,10 +109,10 @@ const styles = StyleSheet.create({
   },
   participants: {
     fontSize: 14,
-    color: '#A5C9CA',
+    color: '#E6E6E6',
   },
   label: {
     fontSize: 14,
-    color: '#A5C9CA',
+    color: '#E6E6E6',
   },
 });
