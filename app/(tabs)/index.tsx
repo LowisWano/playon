@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: 1,
+    marginBottom: 16,
   },
   sectionTitle: {
     color: "#fff",
