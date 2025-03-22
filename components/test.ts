@@ -1,1 +1,0 @@
-// react components to use in the /app directory

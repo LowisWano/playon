@@ -1,10 +1,13 @@
-import { Stack } from "expo-router";
+import { NotificationProvider } from "@/context/notification-context";
+import { AuthProvider } from "@/context/auth-context";
+import RootLayoutNav from "./root-layout-nav";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <AuthProvider>
+      <NotificationProvider>
+        <RootLayoutNav />
+      </NotificationProvider>
+    </AuthProvider>
   );
 }
