@@ -1,41 +1,50 @@
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { useEffect, useState } from "react";
 import MatchCard from "../../components/match-card";
 import MatchCardCompact from "../../components/match-card-compact";
 import StatsCard from "../../components/stats-card";
+import { matchService } from "../../services/match.service";
+import { Match } from "@/types/match.types";
+
 export default function Index() {
   // Sample data - Replace with actual data from your backend
-  const activeMatches = [
-    {
-      sport: "Basketball",
-      author: "John Doe",
-      venue: "Central Park Court",
-      skillLevel: "Intermediate",
-      dateTime: "2024-03-25 18:00",
-      participantsCount: 8,
-      description:
-        "Join us for a fun game of basketball at Central Park Court. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
-    },
-    {
-      sport: "Soccer",
-      author: "Jane Smith",
-      venue: "Community Field",
-      skillLevel: "Advanced",
-      dateTime: "2024-03-26 17:30",
-      participantsCount: 12,
-      description:
-        "Join us for a fun game of soccer at Community Field. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
-    },
-    {
-      sport: "Basketball",
-      author: "John Doe",
-      venue: "Central Park Court",
-      skillLevel: "Intermediate",
-      dateTime: "2024-03-25 18:00",
-      participantsCount: 8,
-      description:
-        "Join us for a fun game of basketball at Central Park Court. We'll have a great time playing and getting to know each other. Bring your friends and come ready to play!",
-    },
-  ];
+  const [activeMatches, setActiveMatches] = useState<Match[]>([]);
+  const [recommendedMatches, setRecommendedMatches] = useState<Match[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [active, recommended] = await Promise.all([
+          matchService.getActiveMatches(),
+          matchService.getRecommendedMatches(),
+        ]);
+        setActiveMatches(active);
+        setRecommendedMatches(recommended);
+      } catch (error) {
+        console.error("Error fetching matches:", error);
+        // Handle error appropriately
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, styles.centered]}>
+        <ActivityIndicator size="large" color="#fff" />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -66,7 +75,7 @@ export default function Index() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Recommended</Text>
 
-          {activeMatches.map((match, index) => (
+          {recommendedMatches.map((match, index) => (
             <MatchCard key={index} {...match} />
           ))}
         </View>
@@ -109,5 +118,9 @@ const styles = StyleSheet.create({
   },
   recommendedList: {
     flex: 1,
+  },
+  centered: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
