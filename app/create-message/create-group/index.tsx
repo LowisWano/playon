@@ -7,8 +7,12 @@ import { View, TextInput, StyleSheet, Text } from "react-native";
 
 export default function Index() {
   const [searchName, setSearchName] = useState<string | null>(null);
-  const [searchResult, setSearchResult] = useState<BasicUserData[] | string | null>(null); // response data
-  const [contactsData, setContactsData] = useState<BasicUserData[] | null>(null);
+  const [searchResult, setSearchResult] = useState<
+    BasicUserData[] | string | null
+  >(null); // response data
+  const [contactsData, setContactsData] = useState<BasicUserData[] | null>(
+    null
+  );
   const [addUsers, setAddUsers] = useState<BasicUserData[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -34,7 +38,12 @@ export default function Index() {
   return (
     <View style={style.container}>
       <View style={style.searchBox}>
-        <Ionicons name="people" size={20} color="white" style={{ marginLeft: 5 }} />
+        <Ionicons
+          name="people"
+          size={20}
+          color="white"
+          style={{ marginLeft: 5 }}
+        />
         <TextInput
           style={style.input}
           placeholder="Enter group name"

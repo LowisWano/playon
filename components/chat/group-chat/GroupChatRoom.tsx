@@ -13,7 +13,11 @@ type GroupChatRoomProps = {
   loading: boolean;
 };
 
-export default function GroupChatRoom({ roomData, paramsData, loading }: GroupChatRoomProps) {
+export default function GroupChatRoom({
+  roomData,
+  paramsData,
+  loading,
+}: GroupChatRoomProps) {
   const { id: userId, username, profile } = useAuth();
 
   const propsCR = {
@@ -58,12 +62,16 @@ export default function GroupChatRoom({ roomData, paramsData, loading }: GroupCh
       <View key={index}>
         <View
           style={
-            message.sender_id === userId ? styles.sentByYouContainer : { alignSelf: "flex-start" }
+            message.sender_id === userId
+              ? styles.sentByYouContainer
+              : { alignSelf: "flex-start" }
           }
         >
           {/* if not equal to userId then display the sender else just the "seen" icon */}
           {message.sender_id !== userId ? (
-            <Text style={styles.sentByChatmateText}>{findSender(message.sender_id)?.username}</Text>
+            <Text style={styles.sentByChatmateText}>
+              {findSender(message.sender_id)?.username}
+            </Text>
           ) : (
             <Ionicons name="person-circle" size={15} color="white" />
           )}
@@ -75,7 +83,13 @@ export default function GroupChatRoom({ roomData, paramsData, loading }: GroupCh
                 : { borderWidth: 1, borderColor: "white" },
             ]}
           >
-            <Text style={message.sender_id === userId ? { color: "black" } : { color: "white" }}>
+            <Text
+              style={
+                message.sender_id === userId
+                  ? { color: "black" }
+                  : { color: "white" }
+              }
+            >
               {message.content}
             </Text>
           </View>

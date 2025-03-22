@@ -32,7 +32,9 @@ const NotificationContext = createContext<NotificationContextType>({
 //   GROUP_CHAT
 // }
 
-export function NotificationProvider({ children }: Readonly<{ children: React.ReactNode }>) {
+export function NotificationProvider({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   const userId = 1;
 
   const [notifications, setNotification] = useState<NotificationTypes[]>([]);

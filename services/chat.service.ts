@@ -1,5 +1,9 @@
 import { api } from "../config/axios";
-import { ChatmateType, GroupChatType, UsersChatmates } from "../types/entities/InboxEntity";
+import {
+  ChatmateType,
+  GroupChatType,
+  UsersChatmates,
+} from "../types/entities/InboxEntity";
 
 export class ChatService {
   static async getAllUsersChatmate(userId: number) {

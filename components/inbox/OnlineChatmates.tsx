@@ -2,7 +2,10 @@ import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import { Link } from "expo-router";
 import { LatestChatmatesProps } from "@/types/props/MessagesProps";
 
-export default function OnlineChatmates({ data, inboxData }: LatestChatmatesProps) {
+export default function OnlineChatmates({
+  data,
+  inboxData,
+}: LatestChatmatesProps) {
   if (inboxData.length === 0) {
     return <TestData data={data} />; // LatestChatmate Component will the "No message" (both are dependent)
   }
@@ -18,7 +21,8 @@ export default function OnlineChatmates({ data, inboxData }: LatestChatmatesProp
         <Link
           key={chat.name}
           href={{
-            pathname: chat.type === "direct" ? "/user-chat/[id]" : "/group-chat/[id]",
+            pathname:
+              chat.type === "direct" ? "/user-chat/[id]" : "/group-chat/[id]",
             params: {
               id: chat.id,
               name: chat.name,

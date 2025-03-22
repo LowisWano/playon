@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Pressable, ScrollView, Switch } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  ScrollView,
+  Switch,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 
 export default function CreateMatchScreen() {
   const router = useRouter();
@@ -103,7 +113,9 @@ export default function CreateMatchScreen() {
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Match Access</Text>
           <View style={styles.switchContainer}>
-            <Text style={styles.switchLabel}>{isPublic ? "Public" : "Invite Only"}</Text>
+            <Text style={styles.switchLabel}>
+              {isPublic ? "Public" : "Invite Only"}
+            </Text>
             <Switch
               value={isPublic}
               onValueChange={setIsPublic}

@@ -2,7 +2,10 @@ import { View, StyleSheet, TextInput } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { LatestChatmatesProps } from "@/types/props/MessagesProps";
 
-export default function OnlineChatmates({ data, inboxData }: LatestChatmatesProps) {
+export default function OnlineChatmates({
+  data,
+  inboxData,
+}: LatestChatmatesProps) {
   return (
     <View style={styles.searchContainer}>
       <TextInput

@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, TextInput, Pressable, Alert } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  Alert,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { useAuth } from "../context/auth-context";
 import { FontAwesome } from "@expo/vector-icons";

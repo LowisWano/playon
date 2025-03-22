@@ -38,5 +38,7 @@ export default function UserChatScreen() {
     readAllMessagesInRoom();
   }, [roomData]);
 
-  return <UserChatRoom roomData={roomData} paramsData={params} loading={loading} />;
+  return (
+    <UserChatRoom roomData={roomData} paramsData={params} loading={loading} />
+  );
 }

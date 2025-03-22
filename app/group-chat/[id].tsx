@@ -23,5 +23,7 @@ export default function GroupChatScreen() {
     loadUsersGroupChat();
   }, [params.id]);
 
-  return <GroupChatRoom roomData={roomData} paramsData={params} loading={loading} />;
+  return (
+    <GroupChatRoom roomData={roomData} paramsData={params} loading={loading} />
+  );
 }

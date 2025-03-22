@@ -3,7 +3,10 @@ import { Link, router } from "expo-router";
 import { LatestChatmatesProps } from "@/types/props/MessagesProps";
 import { parseToTime } from "@/utils/parseToTime";
 
-export default function LatestChatmates({ data, inboxData }: LatestChatmatesProps) {
+export default function LatestChatmates({
+  data,
+  inboxData,
+}: LatestChatmatesProps) {
   if (inboxData.length === 0) {
     return (
       // <View style={{ alignItems: "center", marginTop: 20 }}>
@@ -21,7 +24,8 @@ export default function LatestChatmates({ data, inboxData }: LatestChatmatesProp
           style={{ marginBottom: 12, marginTop: 12 }}
           onPress={() => {
             router.push({
-              pathname: chat.type === "direct" ? "/user-chat/[id]" : "/group-chat/[id]",
+              pathname:
+                chat.type === "direct" ? "/user-chat/[id]" : "/group-chat/[id]",
               params: {
                 id: chat.id,
                 name: chat.name,
@@ -44,14 +48,20 @@ export default function LatestChatmates({ data, inboxData }: LatestChatmatesProp
                       },
                     ]}
                   >
-                    {chat.isSender ? "You: " : chat.type === "group" ? chat.sentByName + ": " : ""}
+                    {chat.isSender
+                      ? "You: "
+                      : chat.type === "group"
+                        ? chat.sentByName + ": "
+                        : ""}
                     {chat.lastMessageContent}
                   </Text>
                 ) : (
                   // doesnt matter if its direct since it will still have message content
                   <Text style={styles.latestMessage}>Created the group</Text>
                 )}
-                <Text style={styles.latestMessage}>| {parseToTime(chat.lastMessageSent)}</Text>
+                <Text style={styles.latestMessage}>
+                  | {parseToTime(chat.lastMessageSent)}
+                </Text>
               </View>
             </View>
           </View>
@@ -95,7 +105,9 @@ function TempData({ data }: Props) {
         <View>
           <Text style={{ color: "white", fontSize: 15 }}>{chat.name}</Text>
           <View style={{ flexDirection: "row", gap: 5 }}>
-            <Text style={{ color: "grey", fontSize: 12 }}>You: {chat.type}</Text>
+            <Text style={{ color: "grey", fontSize: 12 }}>
+              You: {chat.type}
+            </Text>
             <Text style={{ color: "grey", fontSize: 12 }}>| 2:53 PM</Text>
           </View>
         </View>

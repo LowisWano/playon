@@ -6,10 +6,18 @@ type SearchNameResultProps = {
   setSearchName: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export default function SearchName({ searchName, setSearchName }: SearchNameResultProps) {
+export default function SearchName({
+  searchName,
+  setSearchName,
+}: SearchNameResultProps) {
   return (
     <View style={style.searchBox}>
-      <Ionicons name="person" size={20} color="white" style={{ marginLeft: 5 }} />
+      <Ionicons
+        name="person"
+        size={20}
+        color="white"
+        style={{ marginLeft: 5 }}
+      />
       <TextInput
         style={style.input}
         placeholder="Search a name"
@@ -17,7 +25,12 @@ export default function SearchName({ searchName, setSearchName }: SearchNameResu
         value={searchName ? searchName : ""}
         onChangeText={setSearchName}
       />
-      <Ionicons name="search" size={20} color="white" style={{ marginRight: 8 }} />
+      <Ionicons
+        name="search"
+        size={20}
+        color="white"
+        style={{ marginRight: 8 }}
+      />
     </View>
   );
 }

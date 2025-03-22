@@ -1,12 +1,17 @@
 import { View, Text, Image } from "react-native";
 
-export default function TestChats({ directMessages }: Readonly<{ directMessages: string[] }>) {
+export default function TestChats({
+  directMessages,
+}: Readonly<{ directMessages: string[] }>) {
   return (
     <>
       <View style={{ gap: 25, marginBottom: 20 }}>
-        {directMessages && directMessages.map((msg, index) => <Text key={index}>{msg}</Text>)}
+        {directMessages &&
+          directMessages.map((msg, index) => <Text key={index}>{msg}</Text>)}
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -47,7 +52,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -88,7 +95,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -129,7 +138,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -170,7 +181,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -211,7 +224,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -252,7 +267,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -293,7 +310,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,
@@ -334,7 +353,9 @@ export default function TestChats({ directMessages }: Readonly<{ directMessages:
         </View>
 
         <View>
-          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>Kenny Maratas</Text>
+          <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
+            Kenny Maratas
+          </Text>
           <View
             style={{
               padding: 10,

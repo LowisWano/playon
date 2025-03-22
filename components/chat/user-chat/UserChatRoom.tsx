@@ -13,7 +13,11 @@ type UserChatRoomProps = {
   loading: boolean;
 };
 
-export default function UserChatRoom({ roomData, paramsData, loading }: UserChatRoomProps) {
+export default function UserChatRoom({
+  roomData,
+  paramsData,
+  loading,
+}: UserChatRoomProps) {
   const { id: userId, username, profile } = useAuth();
 
   const propsCR = {
@@ -48,13 +52,18 @@ export default function UserChatRoom({ roomData, paramsData, loading }: UserChat
     if (roomData === undefined) return <></>;
 
     // checks which member is YOU
-    const chatmate = roomData[0].member1.id === userId ? roomData[0].member2 : roomData[0].member1;
+    const chatmate =
+      roomData[0].member1.id === userId
+        ? roomData[0].member2
+        : roomData[0].member1;
 
     return roomData[0].messages?.map((message: Messages, index: number) => (
       <View key={index}>
         <View
           style={
-            message.sender_id === userId ? styles.sentByYouContainer : { alignSelf: "flex-start" }
+            message.sender_id === userId
+              ? styles.sentByYouContainer
+              : { alignSelf: "flex-start" }
           }
         >
           {/* if not equal to userId then display the sender else just the "seen" icon */}
@@ -71,7 +80,13 @@ export default function UserChatRoom({ roomData, paramsData, loading }: UserChat
                 : { borderWidth: 1, borderColor: "white" },
             ]}
           >
-            <Text style={message.sender_id === userId ? { color: "black" } : { color: "white" }}>
+            <Text
+              style={
+                message.sender_id === userId
+                  ? { color: "black" }
+                  : { color: "white" }
+              }
+            >
               {message.content}
             </Text>
           </View>

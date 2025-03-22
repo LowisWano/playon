@@ -8,8 +8,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function Index() {
   const [searchName, setSearchName] = useState<string | null>(null);
-  const [searchResult, setSearchResult] = useState<BasicUserData[] | string | null>(null); // response data
-  const [contactsData, setContactsData] = useState<BasicUserData[] | null>(null);
+  const [searchResult, setSearchResult] = useState<
+    BasicUserData[] | string | null
+  >(null); // response data
+  const [contactsData, setContactsData] = useState<BasicUserData[] | null>(
+    null
+  );
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -51,7 +55,12 @@ function NavigateToCreateGroup() {
         router.push("/create-message/create-group");
       }}
     >
-      <Ionicons name="people" size={20} color="white" style={{ marginLeft: 5 }} />
+      <Ionicons
+        name="people"
+        size={20}
+        color="white"
+        style={{ marginLeft: 5 }}
+      />
       <Text style={style.textGC}>New group</Text>
       <Ionicons
         name="chevron-forward"

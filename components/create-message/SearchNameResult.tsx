@@ -1,5 +1,9 @@
 import { Text, ScrollView, StyleSheet } from "react-native";
-import { NotFoundResult, PlayOnUsers, TestContacts } from "./sub-components/Result";
+import {
+  NotFoundResult,
+  PlayOnUsers,
+  TestContacts,
+} from "./sub-components/Result";
 import { BasicUserData } from "../../types/entities/User";
 
 type SearchNameResultProps = {
@@ -19,7 +23,9 @@ export default function SearchNameResult(props: SearchNameResultProps) {
     <ScrollView style={{ marginTop: 16 }}>
       <Text style={style.labelText}>
         {searchName && "Search Result"}
-        {!searchName && route === "create-message" ? "Recent Contacts" : "In Contacts"}
+        {!searchName && route === "create-message"
+          ? "Recent Contacts"
+          : "In Contacts"}
       </Text>
 
       {searchResult ? (
