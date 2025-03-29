@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-import { Link } from "expo-router";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { Link, router } from "expo-router";
 import { LatestChatmatesProps } from "@/types/props/MessagesProps";
 
 export default function OnlineChatmates({
@@ -18,19 +18,21 @@ export default function OnlineChatmates({
       contentContainerStyle={{ paddingVertical: 10 }}
     >
       {inboxData.map((chat) => (
-        <Link
+        <TouchableOpacity // touchable for user experience
           key={chat.name}
-          href={{
-            pathname:
-              chat.type === "direct" ? "/user-chat/[id]" : "/group-chat/[id]",
-            params: {
-              id: chat.id,
-              name: chat.name,
-              profile: chat.image,
-              room_id: chat.room_id,
-            },
-          }}
           style={{ marginBottom: 12, marginTop: 12 }}
+          onPress={() => {
+            router.push({
+              pathname:
+                chat.type === "direct" ? "/user-chat/[id]" : "/group-chat/[id]",
+              params: {
+                id: chat.id,
+                name: chat.name,
+                profile: chat.image,
+                to: chat.sentByNameOrId
+              },
+            });
+          }}
         >
           <View style={styles.onlineChatmates}>
             <Image source={{ uri: chat.image }} style={styles.chatmateImage} />
@@ -38,7 +40,7 @@ export default function OnlineChatmates({
               {chat.name.length > 10 ? chat.name.slice(0, 7) + ".." : chat.name}
             </Text>
           </View>
-        </Link>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );

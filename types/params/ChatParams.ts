@@ -5,4 +5,5 @@ export interface ChatParams extends UnknownOutputParams {
     id: string; // roomid
     name: string;
     profile: string;
+    sentTo: string;
 }

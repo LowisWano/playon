@@ -1,8 +1,7 @@
 import useSWR from "swr";
 import { ChatService } from "@/services/chat.service";
 import {
-  ChatmateType,
-  GroupUserType,
+  Messages,
   UsersChatmates,
 } from "@/types/entities/InboxEntity";
 import { useMemo } from "react";
@@ -14,62 +13,57 @@ const fetcher = async (userId: number) => {
 
 export const useInboxData = (userId: number) => {
   const { data, isLoading } = useSWR(userId.toString(), fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 5000,
   });
 
   const sortedToLatestMessages = useMemo(() => {
     if (!data) return [];
 
-    const isUserASenderAndUnread = (
-      g: GroupUserType | null,
-      c: ChatmateType | null
-    ) => {
-      const messages = g?.group_chat.messages || c?.messages;
-      const lastMessage = messages?.[messages.length - 1];
-      const readMessages = lastMessage?.read_messages;
-
-      if (!readMessages?.length) return false;
-
-      return readMessages[0].sent_to_id === userId
-        ? readMessages[0].is_read
-        : true; // true which means the user is the sender
-    };
-
+    console.log(data, "DATA HERE");
+    const isRead = (m: Messages) => {
+      if (!m || m.sender_id === userId) return true;
+      return m.read_messages.find(
+        (rm) => rm.sent_to_id === userId
+      )?.is_read;
+    }
     // Combine and transform chatmates and group_chats into a unified format
     const allChats = [
       ...data.chatmates.map((direct) => ({
-        id: direct.id,
+        id: direct.chat_id,
         type: "direct",
-        room_id: direct.id.toString(),
-        isRead: isUserASenderAndUnread(null, direct),
+        room_id: direct.chat_id.toString(),
+        isRead: isRead(direct.messages[0]),
         isSender: direct.messages[0]?.sender_id === userId,
         lastMessageSent: direct.messages[0]?.sent_at || direct.created_at,
         lastMessageContent: direct.messages[0]?.content || "",
-        sentByName: null,
+        sentByNameOrId: direct.member1_id === userId 
+          ? direct.member2.user_id.toString() 
+          : direct.member1.user_id.toString(),
         name:
           direct.member1_id === userId
-            ? direct.member2.username
-            : direct.member1.username,
+            ? direct.member2.first_name + " " + direct.member2.last_name
+            : direct.member1.first_name + " " + direct.member1.last_name,
         image:
           direct.member1_id === userId
-            ? direct.member2.username
-            : direct.member1.username,
+            ? direct.member2.profile_pic
+            : direct.member1.profile_pic,
       })),
       ...data.group_chats.map((group) => ({
-        id: group.id,
+        id: group.group_chat_id,
         type: "group",
         room_id: group.group_chat_id.toString(),
-        isRead: isUserASenderAndUnread(group, null),
+        isRead: isRead(group.group_chat.messages[0]),
         isSender: group.group_chat.messages?.[0]?.sender_id === userId,
-        lastMessageSent:
-          group.group_chat.messages?.[0]?.sent_at || group.joined_at,
+        lastMessageSent: group.group_chat.messages?.[0]?.sent_at || group.joined_at,
         lastMessageContent: group.group_chat.messages?.[0]?.content || "",
-        sentByName:
-          group.group_chat.messages?.[0]?.sender_id === userId
-            ? "You"
-            : "group.group_chat.user.username",
         name: group.group_chat.gc_name,
         image: "/image",
+        isGcMuted: group.is_on_mute,
+        isGcAdmin: group.group_chat.created_by === userId,
+        sentByNameOrId:
+          group.group_chat.messages?.[0]?.sender_id === userId
+            ? "You"
+            : group.group_chat.messages?.[0]?.sender?.first_name,
       })),
     ];
 

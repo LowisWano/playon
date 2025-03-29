@@ -36,7 +36,6 @@ const style = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 20,
     gap: 20,
   },
   image: {

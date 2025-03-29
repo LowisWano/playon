@@ -1,47 +1,46 @@
 import SearchName from "@/components/create-message/SearchName";
 import SearchNameResult from "@/components/create-message/SearchNameResult";
-import { BasicUserData } from "@/types/entities/User";
+import { useAuth } from "@/context/auth-context";
+import { useDirectMessagesData } from "@/hooks/useDirectData";
+import { usePlayOnUsers } from "@/hooks/usePlayOnUsers";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function Index() {
-  const [searchName, setSearchName] = useState<string | null>(null);
-  const [searchResult, setSearchResult] = useState<
-    BasicUserData[] | string | null
-  >(null); // response data
-  const [contactsData, setContactsData] = useState<BasicUserData[] | null>(
-    null
+  const { id } = useAuth();
+
+  const {
+    loading,
+    searchName,
+    searchResult,
+    setSearchName,
+    recentContacts,
+    setSearchResult,
+  } = useDirectMessagesData(id);
+
+  const { playOnUsers, loading: searchLoading } = usePlayOnUsers(
+    searchName,
+    id
   );
-  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    // fetch contacts data
-    setSearchName(null);
-    setSearchResult(null);
-    setContactsData(null);
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    // will change to skeleton loading
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
+  console.log(playOnUsers, "PLAYON");
 
   return (
     <View style={style.container}>
       <NavigateToCreateGroup />
-      <SearchName searchName={searchName} setSearchName={setSearchName} />
+      <SearchName
+        searchName={searchName}
+        playOnUsers={playOnUsers}
+        setSearchName={setSearchName}
+        setSearchResult={setSearchResult}
+      />
       <SearchNameResult
         route="create-message"
         searchName={searchName}
         searchResult={searchResult}
-        contactsData={contactsData}
+        contactsData={recentContacts}
+        searchLoading={loading ? loading : searchLoading}
       />
     </View>
   );
