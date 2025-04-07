@@ -32,9 +32,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const profile = await AsyncStorage.getItem("profile");
         const id = await AsyncStorage.getItem("id");
         setIsAuthenticated(authStatus === "true");
-        setUsername(username || "");
+        setUsername(username || "John Doe");
         setProfile(profile || "");
-        setId(id ? parseInt(id) : 0);
+        setId(id ? parseInt(id) : 1);
       } catch (error) {
         console.error("Error checking authentication status:", error);
       } finally {
@@ -44,6 +44,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     checkAuth();
   }, []);
+
+  console.log(id, "AUTH ID");
 
   const login = async (username: string, password: string) => {
     // Replace with your actual authentication logic

@@ -5,20 +5,25 @@ import TestChats from "../TestChats";
 import { GroupChatType, Messages } from "@/types/entities/InboxEntity";
 import { ChatParams } from "@/types/params/ChatParams";
 import RoomInputForm from "../RoomInputForm";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import RoomMessages from "../RoomMessages";
+import { isTimeExceeds30mins } from "@/utils/time";
+import { useEffect, useRef } from "react";
 
 type GroupChatRoomProps = {
-  roomData: GroupChatType | undefined;
+  roomData: GroupChatType;
   paramsData: ChatParams;
   loading: boolean;
+  setRoomData: React.Dispatch<React.SetStateAction<GroupChatType>>;
 };
 
 export default function GroupChatRoom({
   roomData,
   paramsData,
   loading,
+  setRoomData,
 }: GroupChatRoomProps) {
   const { id: userId, username, profile } = useAuth();
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const propsCR = {
     room_id: Number(paramsData.id),
@@ -37,6 +42,9 @@ export default function GroupChatRoom({
     uploadImage,
     wsConnection,
     roomMessages: gcMessages,
+    loading: sendMessageLoading,
+    setLoading,
+    setImage,
   } = useChatRoom(propsCR);
 
   const inputFormProps = {
@@ -46,63 +54,72 @@ export default function GroupChatRoom({
     wsConnection,
     image,
     uploadImage,
+    setLoading,
+    sentTo : paramsData.name,
+    setImage,
   };
 
-  const findSender = (sender_id: number) => {
-    if (roomData === undefined) return;
-    return roomData.group_users.find((member) => member.id === sender_id)?.user;
+  useEffect(() => {
+    if (gcMessages === undefined) return;
+    setRoomData((data) => {
+      return {
+        ...data,
+        messages: [...(data.messages || []), gcMessages]
+      }
+    })
+  }, [gcMessages, setRoomData]);
+
+  console.log(roomData, "ROOM DATA");
+  // const lastUserSeen = () =>
+
+  const findSender = (sender_id: number) : string => {
+    const user = roomData.group_users.find((member) => member.user_id === sender_id)?.user;
+    if (user === undefined) return "Unknown User"; // impossible to happen
+    return user.first_name + " " + user.last_name;
   };
 
   const viewMessages = () => {
-    if (roomData === undefined) return <></>;
-
     console.log(roomData, "ROOM DATA");
-
-    return roomData.messages?.map((message: Messages, index: number) => (
-      <View key={index}>
-        <View
-          style={
-            message.sender_id === userId
-              ? styles.sentByYouContainer
-              : { alignSelf: "flex-start" }
-          }
-        >
-          {/* if not equal to userId then display the sender else just the "seen" icon */}
-          {message.sender_id !== userId ? (
-            <Text style={styles.sentByChatmateText}>
-              {findSender(message.sender_id)?.username}
-            </Text>
-          ) : (
-            <Ionicons name="person-circle" size={15} color="white" />
-          )}
-          <View
-            style={[
-              styles.sentByBoth,
-              message.sender_id === userId
-                ? { backgroundColor: "white" }
-                : { borderWidth: 1, borderColor: "white" },
-            ]}
-          >
-            <Text
-              style={
-                message.sender_id === userId
-                  ? { color: "black" }
-                  : { color: "white" }
-              }
-            >
-              {message.content}
-            </Text>
-          </View>
-        </View>
-      </View>
+    if(roomData.messages === null) {
+      return <Text>No messages yet</Text>
+    };
+    return roomData.messages.map((message: Messages, index: number) => (
+      <RoomMessages
+        key={index}
+        message={message}
+        userId={userId}
+        index={index}
+        sender_name={findSender(message.sender_id)}
+        type="gc"
+        lastMessage={index === roomData.messages.length - 1}
+        loading={sendMessageLoading}
+        isExceeds={isTimeExceeds30mins(
+          roomData.messages[index].sent_at,
+          roomData.messages[index - 1]?.sent_at || null
+        )}
+        isStillSender={
+          roomData.messages[index].sender_id === 
+          roomData.messages[index + 1]?.sender_id         
+        }
+      />
     ));
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        ref={scrollViewRef}
+        style={{ flex: 1 }} 
+        showsVerticalScrollIndicator={false}
+        onContentSizeChange={() => {
+          // prevent the scroll to bottom if the user is not the sender
+          if(gcMessages !== undefined && gcMessages.sender_id === userId){
+            scrollViewRef.current?.scrollToEnd({animated: true})
+          }
+        }}
+      >
         {loading ? (
-          <TestChats directMessages={gcMessages} /> // Test, will replace to loading
+          <TestChats /> // Test, will replace to loading
         ) : (
           viewMessages()
         )}
@@ -118,54 +135,5 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingLeft: 25,
     paddingRight: 25,
-  },
-  button: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    flex: 1,
-    borderRadius: 24,
-    borderColor: "white",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    textAlign: "center",
-  },
-  imageContainer: {
-    marginVertical: 16,
-    alignItems: "center",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  imageText: {
-    fontSize: 16,
-    color: "#333",
-  },
-  sentByYouContainer: {
-    alignSelf: "flex-end",
-    flexDirection: "row",
-    alignItems: "flex-end",
-  },
-  sentByBoth: {
-    padding: 10,
-    paddingRight: 15,
-    paddingLeft: 15,
-    borderRadius: 18,
-  },
-  sentByChatmateText: {
-    color: "grey",
-    padding: 5,
-    fontSize: 12,
   },
 });

@@ -4,8 +4,10 @@ import { ChatParams } from "@/types/params/ChatParams";
 import { useEffect, useState } from "react";
 import { GroupChatType } from "@/types/entities/InboxEntity";
 import { ChatService } from "@/services/chat.service";
+import { useAuth } from "@/context/auth-context";
 
 export default function GroupChatScreen() {
+  const { id } = useAuth();
   const params = useLocalSearchParams() as ChatParams;
   const [roomData, setRoomData] = useState<GroupChatType>();
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ export default function GroupChatScreen() {
   useEffect(() => {
     const loadUsersGroupChat = async () => {
       try {
-        const data = await ChatService.getGroupchatMessages(Number(params.id));
+        const data = await ChatService.getGroupChatMessages(Number(params.id));
         setRoomData(data);
         setLoading(false);
       } catch (error) {
@@ -23,7 +25,38 @@ export default function GroupChatScreen() {
     loadUsersGroupChat();
   }, [params.id]);
 
+  useEffect(() => {
+    const readAllMessagesInRoom = async () => {
+      if (roomData) {
+        try {
+          roomData.messages.forEach(async (message) => {
+            if (message.sender_id !== id) {
+              const readMsg = message.read_messages.find(
+                (msg) => msg.sent_to_id === id
+              );
+              if (readMsg && !readMsg.is_read) {
+                await ChatService.readMessage(readMsg.id);
+              }
+            }
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    readAllMessagesInRoom();
+  }, [roomData, id]);
+
+  console.log(roomData, "ROOM DATA");
+
   return (
-    <GroupChatRoom roomData={roomData} paramsData={params} loading={loading} />
+    <GroupChatRoom
+      roomData={roomData as GroupChatType}
+      setRoomData={
+        setRoomData as React.Dispatch<React.SetStateAction<GroupChatType>>
+      }
+      paramsData={params}
+      loading={loading}
+    />
   );
 }

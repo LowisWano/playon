@@ -12,7 +12,7 @@
     "lint": "eslint app/ components/ context/ hooks/ services/",
     "lint:fix": "eslint app/ components/ context/ hooks/ services/ --fix",
     "prepare": "husky && husky install",
-    "prettier": "prettier --write app/ components/ context/ hooks/ services/"
+    "prettier": "prettier --write app/"
   },
   "jest": {
     "preset": "jest-expo"
@@ -21,6 +21,7 @@
     "@expo/vector-icons": "^14.0.2",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/datetimepicker": "8.2.0",
+    "@react-native-community/netinfo": "^11.4.1",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/core": "^7.4.0",
     "@react-navigation/native": "^7.0.15",
@@ -42,8 +43,8 @@
     "expo-web-browser": "~14.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-native-bouncy-checkbox": "^4.1.2",
     "react-native": "0.76.7",
+    "react-native-bouncy-checkbox": "^4.1.2",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-reanimated": "~3.16.1",
     "react-native-safe-area-context": "^4.12.0",

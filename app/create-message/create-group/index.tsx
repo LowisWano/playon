@@ -1,39 +1,59 @@
 import SearchName from "@/components/create-message/SearchName";
 import SearchNameResult from "@/components/create-message/SearchNameResult";
-import { BasicUserData } from "@/types/entities/User";
+import { useAuth } from "@/context/auth-context";
+import { useDirectMessagesData } from "@/hooks/useDirectData";
+import { usePlayOnUsers } from "@/hooks/usePlayOnUsers";
+import { RoomUserData } from "@/types/entities/UserEntity";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useEffect, useState } from "react";
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import { useNavigation } from "expo-router";
+import { useLayoutEffect, useState } from "react";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function Index() {
-  const [searchName, setSearchName] = useState<string | null>(null);
-  const [searchResult, setSearchResult] = useState<
-    BasicUserData[] | string | null
-  >(null); // response data
-  const [contactsData, setContactsData] = useState<BasicUserData[] | null>(
-    null
+  const { id } = useAuth();
+  const navigation = useNavigation();
+  const [addUsers, setAddUsers] = useState<RoomUserData[]>([]);
+  const [groupName, setGroupName] = useState<string>("");
+  // probably a random image for the group
+  // const [groupImage, setGroupImage] = useState<string>("");
+  console.log(addUsers, "ADD USERS");
+
+  const {
+    loading,
+    searchName,
+    searchResult,
+    setSearchName,
+    recentContacts,
+    setSearchResult,
+  } = useDirectMessagesData(id);
+
+  const { playOnUsers, loading: searchLoading } = usePlayOnUsers(
+    searchName,
+    id
   );
-  const [addUsers, setAddUsers] = useState<BasicUserData[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
 
-  console.log(addUsers);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            // Handle add members logic here
+            console.log("Adding membersww:", addUsers);
+          }}
+          disabled={addUsers.length === 0 || groupName === ""}
+        >
+          <Ionicons
+            name="add"
+            size={24}
+            color={addUsers.length === 0 || groupName === "" ? "grey" : "white"}
+            style={{ marginRight: 20 }}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, addUsers, groupName]);
 
-  useEffect(() => {
-    // fetch contacts data
-    setSearchName(null);
-    setSearchResult(null);
-    setContactsData(null);
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    // will change to skeleton loading
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
+  console.log(groupName, "GROUP NAME");
 
   return (
     <View style={style.container}>
@@ -47,16 +67,24 @@ export default function Index() {
         <TextInput
           style={style.input}
           placeholder="Enter group name"
+          value={groupName}
+          onChangeText={(text) => setGroupName(text)}
           placeholderTextColor={"grey"}
         />
       </View>
-      <SearchName searchName={searchName} setSearchName={setSearchName} />
+      <SearchName
+        searchName={searchName}
+        playOnUsers={playOnUsers}
+        setSearchName={setSearchName}
+        setSearchResult={setSearchResult}
+      />
       <SearchNameResult
         route="create-group"
         searchName={searchName}
         searchResult={searchResult}
-        contactsData={contactsData}
+        contactsData={recentContacts}
         setAddUsers={setAddUsers}
+        searchLoading={loading ? loading : searchLoading}
       />
     </View>
   );
