@@ -1,8 +1,11 @@
-import { router, Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { TouchableOpacity } from "react-native";
 
 export default function TabLayout() {
+  // Use the hook pattern instead of direct import
+  const router = useRouter();
+
   return (
     <Tabs
       screenOptions={{
