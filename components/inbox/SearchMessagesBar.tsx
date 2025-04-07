@@ -9,7 +9,7 @@ export default function OnlineChatmates({
   return (
     <View style={styles.searchContainer}>
       <TextInput
-        placeholder="Search Messages"
+        placeholder="Search contacts"
         placeholderTextColor="gray"
         style={styles.searchBar}
       />
@@ -41,6 +41,5 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 35,
     fontSize: 16,
-    outline: "none",
   },
 });

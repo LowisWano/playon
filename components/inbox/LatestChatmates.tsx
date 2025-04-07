@@ -1,25 +1,47 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Animated } from "react-native";
 import { Link, router } from "expo-router";
 import { LatestChatmatesProps } from "@/types/props/MessagesProps";
-import { parseToTime } from "@/utils/parseToTime";
+import { convertToInboxTime } from "@/utils/time";
+import { useState, useRef } from "react";
+import { InboxChatmates } from "@/types/entities/InboxEntity";
+import ChatmateHoldModal from "./ChatmateHoldModal";
 
 export default function LatestChatmates({
   data,
   inboxData,
 }: LatestChatmatesProps) {
+  
+  const [selectedChat, setSelectedChat] = useState<InboxChatmates | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const slideAnim = useRef(new Animated.Value(300)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+
+  const openModal = (chat: InboxChatmates) => {
+    setSelectedChat(chat);
+    setModalVisible(true);
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      })
+    ]).start();
+  };
+
   if (inboxData.length === 0) {
-    return (
-      // <View style={{ alignItems: "center", marginTop: 20 }}>
-      //   <Text style={{ color: "white", fontSize: 20 }}>No messages yet</Text>
-      // </View>
-      <TempData data={data} />
-    );
+    return <TempData data={data} />; // Replace to skeleton loading
   }
 
   return (
     <View>
       {inboxData.map((chat) => (
-        <TouchableOpacity // touchable for user experience
+        <TouchableOpacity
           key={chat.name}
           style={{ marginBottom: 12, marginTop: 12 }}
           onPress={() => {
@@ -30,12 +52,18 @@ export default function LatestChatmates({
                 id: chat.id,
                 name: chat.name,
                 profile: chat.image,
+                to: chat.type === "direct" ? chat.sentByNameOrId : "gc",
               },
             });
           }}
+          onLongPress={() => openModal(chat)}
+          delayLongPress={200} // Hold for 200ms den trigger
         >
           <View style={styles.latestChatmatesContainer}>
-            <Image source={{ uri: chat.image }} style={styles.profile} />
+            <Image 
+              source={{ uri: chat.image }} 
+              style={styles.profile} 
+            />
             <View style={styles.col}>
               <Text style={styles.name}>{chat.name}</Text>
               <View style={styles.row}>
@@ -51,25 +79,35 @@ export default function LatestChatmates({
                     {chat.isSender
                       ? "You: "
                       : chat.type === "group"
-                        ? chat.sentByName + ": "
+                        ? chat.sentByNameOrId + ": "
                         : ""}
                     {chat.lastMessageContent}
                   </Text>
                 ) : (
-                  // doesnt matter if its direct since it will still have message content
                   <Text style={styles.latestMessage}>Created the group</Text>
                 )}
                 <Text style={styles.latestMessage}>
-                  | {parseToTime(chat.lastMessageSent)}
+                  | {convertToInboxTime(chat.lastMessageSent)}
                 </Text>
               </View>
             </View>
           </View>
         </TouchableOpacity>
       ))}
+
+      <ChatmateHoldModal 
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selectedChat={selectedChat}
+        setSelectedChat={setSelectedChat}
+        fadeAnim={fadeAnim}
+        slideAnim={slideAnim}
+      />
+      
     </View>
   );
 }
+
 
 type Props = {
   data: {

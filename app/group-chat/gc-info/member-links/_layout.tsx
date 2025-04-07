@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-export default function CreateGroupLayout() {
+export default function GroupChatInfoLayout() {
   return (
     <Stack
       screenOptions={{
@@ -8,13 +8,13 @@ export default function CreateGroupLayout() {
           backgroundColor: "#252422",
         },
         headerTintColor: "#fff",
-        headerTitle: "Add member",
+        headerTitle: "",
         contentStyle: {
           backgroundColor: "#252422",
         },
       }}
     >
-      <Stack.Screen name="index" />
+      <Stack.Screen name="[id]" options={{ headerShown: false }} />
     </Stack>
   );
 }

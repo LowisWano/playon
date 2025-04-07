@@ -1,50 +1,56 @@
 import { Text, ScrollView, StyleSheet } from "react-native";
 import {
-  NotFoundResult,
   PlayOnUsers,
-  TestContacts,
-} from "./sub-components/Result";
-import { BasicUserData } from "../../types/entities/User";
+} from "./sub-components/PlayOnUsers";
+import { NotFoundResult } from "./sub-components/NotFoundResult";
+import { RoomUserData } from "../../types/entities/UserEntity";
 
 type SearchNameResultProps = {
   route: string;
   searchName: string | null;
-  searchResult: BasicUserData[] | string | null;
-  contactsData: BasicUserData[] | null;
-  setAddUsers?: React.Dispatch<React.SetStateAction<BasicUserData[]>>;
+  searchLoading: boolean;
+  searchResult: RoomUserData[] | string | null;
+  contactsData: RoomUserData[] | null;
+  setAddUsers?: React.Dispatch<React.SetStateAction<RoomUserData[]>>;
 };
 
 export default function SearchNameResult(props: SearchNameResultProps) {
-  const { route, searchName, searchResult, contactsData, setAddUsers } = props;
+  const { route, searchName, searchResult, contactsData, setAddUsers, searchLoading } = props;
 
-  console.log(contactsData);
-
+  console.log(contactsData, "CONTACTS DATA");
+  console.log(searchResult, "SEARCH RESULT");
+  
   return (
     <ScrollView style={{ marginTop: 16 }}>
       <Text style={style.labelText}>
         {searchName && "Search Result"}
         {!searchName && route === "create-message"
           ? "Recent Contacts"
-          : "In Contacts"}
+          : !searchName
+          ? "In Contacts"
+          : null}
       </Text>
-
-      {searchResult ? (
-        (searchResult as string) === "not-found" ? (
-          <NotFoundResult />
+      {!searchLoading ? (
+        searchResult ? (
+          (searchResult as string) === "not-found" ? (
+            <NotFoundResult />
+          ) : (
+            <PlayOnUsers
+              users={searchResult as RoomUserData[]}
+              route={route}
+              setAddUsers={setAddUsers}
+            />
+          )
         ) : (
           <PlayOnUsers
-            users={searchResult as BasicUserData[]}
+            users={contactsData as RoomUserData[]}
             route={route}
             setAddUsers={setAddUsers}
           />
+          // <TestContacts route={route} />
         )
       ) : (
-        // <PlayOnUsers
-        //   users={contactsData as BasicUserData[]}
-        //   route={route}
-        //   setAddUsers={setAddUsers}
-        // />
-        <TestContacts route={route} />
+        <Text>Loading...</Text>
       )}
     </ScrollView>
   );

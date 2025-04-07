@@ -1,13 +1,9 @@
 import { View, Text, Image } from "react-native";
 
-export default function TestChats({
-  directMessages,
-}: Readonly<{ directMessages: string[] }>) {
+export default function TestChats() {
   return (
     <>
       <View style={{ gap: 25, marginBottom: 20 }}>
-        {directMessages &&
-          directMessages.map((msg, index) => <Text key={index}>{msg}</Text>)}
         <View>
           <Text style={{ color: "grey", padding: 5, fontSize: 12 }}>
             Kenny Maratas
@@ -30,24 +26,33 @@ export default function TestChats({
         <View
           style={{
             alignSelf: "flex-end",
-            flexDirection: "row",
-            alignItems: "flex-end",
           }}
         >
-          <Image
-            source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
-            style={{ width: 15, height: 15, borderRadius: 50 }}
-          />
           <View
             style={{
-              padding: 10,
-              paddingRight: 15,
-              paddingLeft: 15,
-              backgroundColor: "white",
-              borderRadius: 18,
+              flexDirection: "row",
+              alignItems: "flex-end",
+              justifyContent: "flex-end",
             }}
           >
-            <Text style={{ color: "black" }}>YOU</Text>
+            <Image
+              source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
+              style={{ width: 15, height: 15, borderRadius: 50 }}
+            />
+            <View
+              style={{
+                padding: 10,
+                paddingRight: 15,
+                paddingLeft: 15,
+                backgroundColor: "white",
+                borderRadius: 18,
+                maxWidth: "80%",
+              }}
+            >
+              <Text style={{ color: "black" }}>
+                YOU dwad w w d dwaaw dwada dwa dwad aw dwa dawd YOU dwad w w d dwaaw dwada dwa dwad aw dwa dawd YOU dwad w w d dwaaw dwada dwa dwad aw dwa dawd
+              </Text>
+            </View>
           </View>
         </View>
 

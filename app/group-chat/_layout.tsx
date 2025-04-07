@@ -20,10 +20,15 @@ export default function GroupChatLayout() {
         },
         headerRight: () => (
           <TouchableOpacity
-            onPress={() => router.navigate("/group-chat/add-member/")}
+            onPress={() =>
+              router.push({
+                pathname: "/group-chat/gc-info/[id]",
+                params: { id, name, profile },
+              })
+            }
           >
             <Ionicons
-              name="person-add"
+              name="information-circle"
               size={24}
               color="white"
               style={{ marginRight: 20 }}
@@ -40,8 +45,8 @@ export default function GroupChatLayout() {
         },
       }}
     >
-      <Stack.Screen name="add-member" options={{ headerShown: false }} />
       <Stack.Screen name="[id]" />
+      <Stack.Screen name="gc-info" options={{ headerShown: false }} />
     </Stack>
   );
 }

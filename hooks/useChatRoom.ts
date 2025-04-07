@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import { Messages } from "@/types/entities/InboxEntity";
 
 type ChatRoomProps = {
   room_id: number;
@@ -13,12 +14,13 @@ type ChatRoomProps = {
 export const useChatRoom = (p: ChatRoomProps) => {
   const [inputMessage, setInputMessage] = useState("");
   const [wsConnection, setWsConnection] = useState<null | WebSocket>(null);
-  const [roomMessages, setRoomMessages] = useState<string[]>([""]);
+  const [roomMessages, setRoomMessages] = useState<Messages>();
   const [image, setImage] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const ws = new WebSocket(
-      `ws://localhost:8000/${p.room_type}/ws/${Number(p.room_id)}/${p.room_name}/${Number(p.sender_id)}/${p.username}/1`
+      `ws://localhost:8000/${p.room_type}/ws/${Number(p.room_id)}/${p.room_name}/${Number(p.sender_id)}/${p.username}`
     );
     // const ws = new WebSocket(`ws://192.168.50.136:8000/group-chat/ws/${room}/${id}`);
     setWsConnection(ws);
@@ -27,8 +29,21 @@ export const useChatRoom = (p: ChatRoomProps) => {
     };
 
     ws.onmessage = (event) => {
+      const message: Messages = JSON.parse(event.data);
       console.log("Received:", event.data);
-      setRoomMessages((roomMessages) => [...roomMessages, event.data]);
+      console.log("Message:", message);
+      const newMessage: Messages = {
+        id: message.id,
+        user_chat_id: message.user_chat_id,
+        group_chat_id: message.group_chat_id,
+        sender_id: message.sender_id,
+        content: message.content,
+        sent_at: new Date().toISOString(),
+        is_deleted: message.is_deleted,
+        read_messages: message.read_messages,
+      };
+      setRoomMessages(newMessage);
+      setLoading(false);
     };
 
     ws.onerror = (error) => {
@@ -38,6 +53,10 @@ export const useChatRoom = (p: ChatRoomProps) => {
     ws.onclose = () => {
       console.log("Disconnected from WebSocket");
     };
+
+    return () => {
+      ws.close();
+    }
   }, [p.room_id, p.sender_id, p.username, p.profile, p.room_type, p.room_name]);
 
   const pickImage = async () => {
@@ -49,8 +68,8 @@ export const useChatRoom = (p: ChatRoomProps) => {
     });
 
     if (!result.canceled) {
+      setInputMessage(""); // why not use this? cause its binary will apply in input field value :)
       setImage(result.assets[0].uri);
-      //   setInputMessage(result.assets[0].uri);
       console.log(result.assets[0].uri);
     }
   };
@@ -71,5 +90,8 @@ export const useChatRoom = (p: ChatRoomProps) => {
     image,
     pickImage,
     uploadImage,
+    loading,
+    setLoading,
+    setImage
   };
 };

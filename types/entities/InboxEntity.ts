@@ -1,4 +1,4 @@
-import { User } from "./User";
+import { PlayOnUserData } from "./UserEntity";
 
 type ReadMessages = {
     id: number;
@@ -17,6 +17,7 @@ export type Messages = {
     content: string;
     is_deleted: boolean;
     sent_at: string;
+    sender?: PlayOnUserData;
     read_messages: ReadMessages[];
 }
 
@@ -26,30 +27,30 @@ export type GroupChatType = {
     gc_name: string;
     group_pic: string | null;
     created_at: string;
-    creator: User | null;
+    creator: PlayOnUserData | null;
     group_users: GroupUserType[];
-    messages: Messages[] | null;
+    messages: Messages[] | [];
 }
 
 export type GroupUserType = {
     id: number;
     group_chat_id: number;
     user_id: number;
-    isPending: boolean;
-    isGcOnMute: boolean;
+    is_pending: boolean;
+    is_on_mute: boolean;
     joined_at: string;
     group_chat: GroupChatType;
-    user: User;
+    user: PlayOnUserData;
 }
 
 export type ChatmateType = {
-    id: number;
+    chat_id: number;
     member1_id: number;
     member2_id: number;
     room_id: string;
     created_at: string;
-    member1: User;
-    member2: User;
+    member1: PlayOnUserData;
+    member2: PlayOnUserData;
     messages: Messages[] | [];
 }
 
@@ -64,8 +65,10 @@ export type InboxChatmates = {
     name: string;
     image: string;
     isSender: boolean;
-    isRead: boolean;
-    sentByName: string | null;
+    isRead: boolean | undefined;
+    sentByNameOrId: string;
     lastMessageSent: string;
     lastMessageContent: string;
+    isGcMuted: boolean | undefined;
+    isGcAdmin: boolean | undefined;
 };
